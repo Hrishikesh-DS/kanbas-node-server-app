@@ -9,7 +9,6 @@ app.use(cors());
 app.use(express.json());
 ModuleRoutes(app);
 AssignmentRoutes(app);
-Hello(app);
 Lab5(app);
 CourseRoutes(app);
 app.listen(process.env.PORT || 4000);
