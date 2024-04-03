@@ -1,5 +1,4 @@
 import express from 'express';
-import Hello from "./hello.js";
 import Lab5 from './Lab5.js';
 import cors from "cors";
 import CourseRoutes from './Kanbas/Courses/routes.js';
