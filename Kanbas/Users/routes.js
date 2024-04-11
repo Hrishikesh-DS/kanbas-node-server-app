@@ -1,7 +1,7 @@
 import * as dao from "./dao.js";
 // let currentUser = null;
 export default function UserRoutes(app) {
-  
+
   const createUser = async (req, res) => {
     const user = await dao.createUser(req.body);
     res.json(user);
@@ -47,26 +47,60 @@ export default function UserRoutes(app) {
     res.json(currentUser);
   };
 
-  const signin = async (req, res) => {
-    const { username, password } = req.body;
-    const currentUser = await dao.findUserByCredentials(username, password);
-    if (currentUser) {
-      req.session["currentUser"] = currentUser;
-    } else {
-      res.sendStatus(401);
-    }
+  // const signin = async (req, res) => {
+  //   const { username, password } = req.body;
+  //   const currentUser = await dao.findUserByCredentials(username, password);
+  //   if (currentUser) {
+  //     req.session["currentUser"] = currentUser;
+  //   } else {
+  //     res.sendStatus(401);
+  //   }
 
-    res.json(currentUser);
+  //   res.json(currentUser);
+  // };
+
+  // const profile = async (req, res) => {
+  //   const currentUser = req.session["currentUser"];
+  //   if (!currentUser) {
+  //     res.sendStatus(401);
+  //     return;
+  //   }
+
+  //   res.json(currentUser);
+  // };
+  const signin = async (req, res) => {
+    try {
+      const { username, password } = req.body;
+
+      // Assuming dao.findUserByCredentials returns a Promise
+      const currentUser = await dao.findUserByCredentials(username, password);
+
+      if (currentUser) {
+        req.session.currentUser = currentUser;
+        res.json(currentUser);
+      } else {
+        res.sendStatus(401);
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error during sign-in:", error);
+      res.sendStatus(500); // Internal Server Error
+    }
   };
 
-  const profile = async (req, res) => {
-    const currentUser = req.session["currentUser"];
-    if (!currentUser) {
-      res.sendStatus(401);
-      return;
+  const profile = (req, res) => {
+    try {
+      const currentUser = req.session.currentUser;
+      if (currentUser) {
+        res.json(currentUser);
+      } else {
+        res.sendStatus(401);
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error retrieving profile:", error);
+      res.sendStatus(500); // Internal Server Error
     }
-
-    res.json(currentUser);
   };
 
   const signout = (req, res) => {
