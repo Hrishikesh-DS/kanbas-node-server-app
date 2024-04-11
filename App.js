@@ -13,6 +13,7 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0
 mongoose.connect(CONNECTION_STRING);
 
 const app = express();
+app.set('trust proxy', 1);
 app.use(
     cors({
         credentials: true,
@@ -20,17 +21,16 @@ app.use(
     })
 );
 const sessionOptions = {
-    secret: process.env.SESSION_SECRET||'AWZPH5450Q',
+    secret: process.env.SESSION_SECRET || 'AWZPH5450Q',
     resave: false,
     saveUninitialized: false,
-};
-if (process.env.NODE_ENV !== "development") {
-    sessionOptions.proxy = true;
-    sessionOptions.cookie = {
-        sameSite: "none",
+    cookie: {
+        sameSite: 'none',
         secure: true,
-    };
-}
+    }
+};
+
+
 app.use(session(sessionOptions));
 
 
