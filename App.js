@@ -16,7 +16,7 @@ const app = express();
 app.use(
     cors({
         credentials: true,
-        origin: process.env.FRONTEND_URL||'/https://kanbas-node-server-app-a6-iwky.onrender.com'
+        origin: 'https://assignment-6--heroic-crisp-da7720.netlify.app'
     })
 );
 const sessionOptions = {
