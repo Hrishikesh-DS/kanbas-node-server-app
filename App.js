@@ -20,7 +20,7 @@ app.use(
     })
 );
 const sessionOptions = {
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET||'AWZPH5450Q',
     resave: false,
     saveUninitialized: false,
 };
