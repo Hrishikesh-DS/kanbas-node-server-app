@@ -54,7 +54,6 @@ export default function CourseRoutes(app) {
     };
     const deleteCourse = async (req, res) => {
         const status = await dao.deleteCourse(req.params.id);
-        console.log(req.params.id);
         res.json(status);
     };
     const updateCourse = async (req, res) => {
