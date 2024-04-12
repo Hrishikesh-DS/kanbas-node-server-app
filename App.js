@@ -27,6 +27,7 @@ const sessionOptions = {
     cookie: {
         sameSite: 'none',
         secure: true,
+        domain: "kanbas-node-server-app-a6-iwky.onrender.com"
     }
 };
 
